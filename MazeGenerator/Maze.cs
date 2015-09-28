@@ -56,8 +56,8 @@ namespace Treboada.Net.Ia
 
         public byte this[uint row, uint col]
         {
-            get { return Cells[(row * Rows) + col]; }
-            private set { Cells[(row * Rows) + col] = value; }
+            get { return Cells[(row * Cols) + col]; }
+			private set { Cells[(row * Cols) + col] = value; }
         }
 
         public bool IsOpen(uint row, uint col, Direction dir)
