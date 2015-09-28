@@ -10,14 +10,21 @@ namespace Treboada.Net.Ia
 		public void TestProperties ()
 		{
 			// constructor
-			Maze m = new Maze (13, 10, false);
+			Maze maze = new Maze (13, 10, false);
 
 			// size
-			Assert.AreEqual (m.Count, 13*10);
+			Assert.AreEqual (maze.Count, 13*10);
 
 			// rows and columns
-			Assert.AreEqual (13, m.Rows);
-			Assert.AreEqual (10, m.Cols);
+			Assert.AreEqual (13, maze.Rows);
+			Assert.AreEqual (10, maze.Cols);
+
+			// walls
+			Assert.IsTrue (maze.IsOpen (0, 0, Maze.Direction.N));
+			maze.SetWall (0, 0, Maze.Direction.N);
+			Assert.IsFalse (maze.IsOpen (0, 0, Maze.Direction.N));
+			maze.UnsetWall (0, 0, Maze.Direction.N);
+			Assert.IsTrue (maze.IsOpen (0, 0, Maze.Direction.N));
 		}
 
 		[Test()]
@@ -26,7 +33,7 @@ namespace Treboada.Net.Ia
 			Maze maze;
 
 			maze = new Maze (2, 2, false);
-			for (uint c = 0; c < maze.Count; c++) {
+			for (int c = 0; c < maze.Count; c++) {
 				Assert.AreEqual (maze[c], Maze.Cell_0);
 			}
 
@@ -36,7 +43,7 @@ namespace Treboada.Net.Ia
 				Maze.Cell_W, Maze.Cell_0, Maze.Cell_E,
 				Maze.Cell_SW, Maze.Cell_S, Maze.Cell_ES,
 			};
-			for (uint c = 0; c < maze.Count; c++) {
+			for (int c = 0; c < maze.Count; c++) {
 				Assert.AreEqual (expected [c], maze [c]);
 			}
 
