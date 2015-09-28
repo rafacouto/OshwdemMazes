@@ -65,6 +65,11 @@ namespace Treboada.Net.Ia
             }
         }
 
+		public uint Count
+		{
+			get { return Rows * Cols; }
+		}
+
         public byte this[uint index]
         {
             get { return Cells[index]; }
