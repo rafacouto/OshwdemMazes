@@ -137,18 +137,18 @@ namespace Treboada.Net.Ia
 		{
 			StringBuilder str = new StringBuilder ();
 
-			foreach (string s in StrLines(3)) {
+			foreach (string s in StrLines(4, 2)) {
 				str.AppendLine (s);
 			}
 
 			return str.ToString ();
 		}
 
-        public string[] StrLines(int cellSize)
+		public string[] StrLines(int cellSizeWidth, int cellSizeHeight)
         {
-			string[] lines = new string[(Rows * cellSize) + 1];
+			string[] lines = new string[(Rows * cellSizeHeight) + 1];
 
-			char[,] buffer = new char[(Cols * cellSize) + 1, (Rows * cellSize) + 1];
+			char[,] buffer = new char[(Cols * cellSizeWidth) + 1, (Rows * cellSizeHeight) + 1];
 			for (int yy = buffer.GetLength(1) - 1; yy >= 0; yy--) {
 				for (int xx = buffer.GetLength(0) - 1; xx >= 0; xx--) {
 					buffer [xx, yy] = ' ';
@@ -161,14 +161,14 @@ namespace Treboada.Net.Ia
             {
                 for (int c = 0; c < Cols; c++)
                 {
-                    BuildStringCell(buffer, c, r, cellSize);
+					BuildStringCell(buffer, c, r, cellSizeWidth, cellSizeHeight);
                 }
             }
 
-			int length = Cols * cellSize + 1;
+			int length = Cols * cellSizeWidth + 1;
             for (int r = 0; r < Rows; r++) {
-				for (int rr = 0; rr <= cellSize; rr++) {
-					int l = (r * cellSize) + rr;
+				for (int rr = 0; rr <= cellSizeHeight; rr++) {
+					int l = (r * cellSizeHeight) + rr;
 					StringBuilder lineBuffer = new StringBuilder(length + 1);
 					for (int c = 0; c < length; c++) {
 						lineBuffer.Append(buffer[c, l]);
@@ -180,49 +180,49 @@ namespace Treboada.Net.Ia
             return lines;
         }
 
-		private void BuildStringCell(char[,] buffer, int col, int row, int cellSize)
+		private void BuildStringCell(char[,] buffer, int col, int row, int cellSizeWidth, int cellSizeHeight)
         {
-			int x = col * cellSize;
-			int y = row * cellSize;
+			int x = col * cellSizeWidth;
+			int y = row * cellSizeHeight;
 
             if (!IsOpen(col, row, Direction.N))
             {
 				buffer[x, y] = '+';
-                for (int c = 1; c < cellSize; c++)
+				for (int c = 1; c < cellSizeWidth; c++)
                 {
                     buffer[x + c, y] = '-';
                 }
-				buffer[x + cellSize, y] = '+';
+				buffer[x + cellSizeWidth, y] = '+';
             }
 
 			if (!IsOpen(col, row, Direction.S))
 			{
-				buffer[x, y + cellSize] = '+';
-				for (int c = 1; c < cellSize; c++)
+				buffer[x, y + cellSizeHeight] = '+';
+				for (int c = 1; c < cellSizeWidth; c++)
 				{
-					buffer[x + c, y + cellSize] = '-';
+					buffer[x + c, y + cellSizeHeight] = '-';
 				}
-				buffer[x + cellSize, y + cellSize] = '+';
+				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
 			}
 
 			if (!IsOpen(col, row, Direction.W))
 			{
 				buffer[x, y] = '+';
-				for (int c = 1; c < cellSize; c++)
+				for (int c = 1; c < cellSizeHeight; c++)
 				{
 					buffer[x, y + c] = '|';
 				}
-				buffer[x, y + cellSize] = '+';
+				buffer[x, y + cellSizeHeight] = '+';
 			}
 
 			if (!IsOpen(col, row, Direction.E))
 			{
-				buffer[x + cellSize, y] = '+';
-				for (int c = 1; c < cellSize; c++)
+				buffer[x + cellSizeWidth, y] = '+';
+				for (int c = 1; c < cellSizeHeight; c++)
 				{
-					buffer[x + cellSize, y + c] = '|';
+					buffer[x + cellSizeWidth, y + c] = '|';
 				}
-				buffer[x + cellSize, y + cellSize] = '+';
+				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
 			}
 		}
 

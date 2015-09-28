@@ -71,16 +71,16 @@ namespace Treboada.Net.Ia
 				"     ",
 				"     ",
 				"     ",
-			}, maze.StrLines(2));
+			}, maze.StrLines(2, 2));
 
 			maze = new Maze (2, 2, true);
 			Assert.AreEqual (new string[] {
-				"+-+-+",
-				"|   |",
-				"+   +",
-				"|   |",
-				"+-+-+",
-			}, maze.StrLines(2));
+				"+--+--+",
+				"|     |",
+				"+     +",
+				"|     |",
+				"+--+--+",
+			}, maze.StrLines(3, 2));
 
 			maze = new Maze (3, 3, true);
 			Assert.AreEqual (new string[] {
@@ -94,7 +94,7 @@ namespace Treboada.Net.Ia
 				"|        |",
 				"|        |",
 				"+--+--+--+",
-			}, maze.StrLines(3));
+			}, maze.StrLines(3, 3));
 
 			maze = new Maze (4, 3, true);
 			maze.UnsetWall (0, 0, Maze.Direction.N);
@@ -117,7 +117,7 @@ namespace Treboada.Net.Ia
 				"            |",
 				"            |",
 				"+--+--+--+--+",
-			}, maze.StrLines(3));
+			}, maze.StrLines(3, 3));
 		}
 	}
 
