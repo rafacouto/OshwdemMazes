@@ -14,6 +14,7 @@ namespace Treboada.Net.Ia
         }
 
 		// possible wall configurations
+		public const byte Cell_0 = 0;
 		public const byte Cell_N = 1;
 		public const byte Cell_E = 2;
 		public const byte Cell_S = 4;
@@ -33,21 +34,23 @@ namespace Treboada.Net.Ia
         public uint Rows { get; private set; }
         public uint Cols { get; private set; }
 
+		public uint Count { get; private set; }
+
         byte[] Cells;
 
         public Maze(uint rows, uint cols, bool closed)
         {
             Rows = rows;
             Cols = cols;
-            int count = (int)(rows * cols);
+            Count = rows * cols;
 
-            Cells = new byte[count];
-            while (count > 0)
-            {
-                Cells[--count] = 0;
-            }
+            Cells = new byte[Count];
+			for (int c = 0; c < Count; c++)
+			{
+				Cells[c] = Cell_0;
+			}
 
-            if (closed)
+			if (closed) 
             {
                 uint br = rows - 1;
                 for (uint c = 0; c < cols; c++)
@@ -64,11 +67,6 @@ namespace Treboada.Net.Ia
                 }
             }
         }
-
-		public uint Count
-		{
-			get { return Rows * Cols; }
-		}
 
         public byte this[uint index]
         {
