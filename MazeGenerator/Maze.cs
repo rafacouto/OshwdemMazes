@@ -89,16 +89,48 @@ namespace Treboada.Net.Ia
 
 		public void SetWall(int col, int row, Direction wall)
 		{
+			SetWall (col, row, wall, true);
+		}
+
+		private void SetWall(int col, int row, Direction wall, bool first)
+		{
 			int cell = this [col, row];
 			int mask = (int)wall;
 			this[col, row] = (byte)(cell | mask);
+
+			if (first) {
+				if (wall == Direction.N && row > 0)
+					SetWall (col, row - 1, Direction.S, false);
+				if (wall == Direction.W && col > 0)
+					SetWall (col - 1, row, Direction.E, false);
+				if (wall == Direction.S && row < Rows - 1)
+					SetWall (col, row + 1, Direction.N, false);
+				if (wall == Direction.E && col < Cols - 1)
+					SetWall (col + 1, row, Direction.W, false);
+			}
 		}
 
 		public void UnsetWall(int col, int row, Direction wall)
 		{
+			UnsetWall (col, row, wall, true);
+		}
+
+		private void UnsetWall(int col, int row, Direction wall, bool first)
+		{
 			int cell = this [col, row];
 			int mask = (int)wall;
 			this[col, row] = (byte)(cell & ~mask);
+
+			if (first) {
+				if (wall == Direction.N && row > 0)
+					UnsetWall (col, row - 1, Direction.S, false);
+				if (wall == Direction.W && col > 0)
+					UnsetWall (col - 1, row, Direction.E, false);
+				if (wall == Direction.S && row < Rows - 1)
+					UnsetWall (col, row + 1, Direction.N, false);
+				if (wall == Direction.E && col < Cols - 1)
+					UnsetWall (col + 1, row, Direction.W, false);
+			}
 		}
 
 		public override string ToString ()

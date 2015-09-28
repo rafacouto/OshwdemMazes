@@ -19,12 +19,22 @@ namespace Treboada.Net.Ia
 			Assert.AreEqual (13, maze.Rows);
 			Assert.AreEqual (10, maze.Cols);
 
-			// walls
+			// wall setting and unsetting
 			Assert.IsTrue (maze.IsOpen (0, 0, Maze.Direction.N));
 			maze.SetWall (0, 0, Maze.Direction.N);
 			Assert.IsFalse (maze.IsOpen (0, 0, Maze.Direction.N));
 			maze.UnsetWall (0, 0, Maze.Direction.N);
 			Assert.IsTrue (maze.IsOpen (0, 0, Maze.Direction.N));
+
+			// wall of contiguous cells
+			Assert.IsTrue (maze.IsOpen(5,5, Maze.Direction.E));
+			Assert.IsTrue (maze.IsOpen(6,5, Maze.Direction.W));
+			maze.SetWall (5,5, Maze.Direction.E);
+			Assert.IsFalse (maze.IsOpen(5,5, Maze.Direction.E));
+			Assert.IsFalse (maze.IsOpen(6,5, Maze.Direction.W));
+			maze.UnsetWall (6,5, Maze.Direction.W);
+			Assert.IsTrue (maze.IsOpen(5,5, Maze.Direction.E));
+			Assert.IsTrue (maze.IsOpen(6,5, Maze.Direction.W));
 		}
 
 		[Test()]
