@@ -13,6 +13,23 @@ namespace Treboada.Net.Ia
             W = 1 << 3,
         }
 
+		// possible wall configurations
+		public const byte Cell_N = 1;
+		public const byte Cell_E = 2;
+		public const byte Cell_S = 4;
+		public const byte Cell_W = 8;
+		public const byte Cell_NE = 3;
+		public const byte Cell_NS = 5;
+		public const byte Cell_NW = 9;
+		public const byte Cell_ES = 6;
+		public const byte Cell_EW = 10;
+		public const byte Cell_SW = 12;
+		public const byte Cell_NES = 7;
+		public const byte Cell_NEW = 11;
+		public const byte Cell_NSW = 13;
+		public const byte Cell_ESW = 14;
+		public const byte Cell_NESW = 15;
+
         public uint Rows { get; private set; }
         public uint Cols { get; private set; }
 
