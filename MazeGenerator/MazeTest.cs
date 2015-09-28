@@ -10,7 +10,7 @@ namespace Treboada.Net.Ia
 		public void TestProperties ()
 		{
 			// constructor
-			Maze maze = new Maze (13, 10, false);
+			Maze maze = new Maze (10, 13, false);
 
 			// size
 			Assert.AreEqual (maze.Count, 13*10);
@@ -52,18 +52,62 @@ namespace Treboada.Net.Ia
 		[Test()]
 		public void TestStringBuilder ()
 		{
-			Maze maze = new Maze (2, 2, false);
+			Maze maze;
 
-			string[] lines = {
-				"      ",
-				"      ",
-				"      ",
-				"      ",
-				"      ",
-				"      ",
-			};
-			Assert.AreEqual (lines, maze.StrLines(3));
+			maze = new Maze (2, 2, false);
+			Assert.AreEqual (new string[] {
+				"     ",
+				"     ",
+				"     ",
+				"     ",
+				"     ",
+			}, maze.StrLines(2));
 
+			maze = new Maze (2, 2, true);
+			Assert.AreEqual (new string[] {
+				"+-+-+",
+				"|   |",
+				"+   +",
+				"|   |",
+				"+-+-+",
+			}, maze.StrLines(2));
+
+			maze = new Maze (3, 3, true);
+			Assert.AreEqual (new string[] {
+				"+--+--+--+",
+				"|        |",
+				"|        |",
+				"+        +",
+				"|        |",
+				"|        |",
+				"+        +",
+				"|        |",
+				"|        |",
+				"+--+--+--+",
+			}, maze.StrLines(3));
+
+			maze = new Maze (4, 3, true);
+			maze.UnsetWall (0, 0, Maze.Direction.N);
+			maze.UnsetWall (0, 2, Maze.Direction.W);
+			maze.SetWall (0, 0, Maze.Direction.S);
+			maze.SetWall (1, 0, Maze.Direction.E);
+			maze.SetWall (1, 1, Maze.Direction.E);
+			maze.SetWall (1, 1, Maze.Direction.W);
+			maze.SetWall (0, 2, Maze.Direction.N);
+			maze.SetWall (2, 2, Maze.Direction.N);
+			maze.SetWall (3, 2, Maze.Direction.N);
+			Assert.AreEqual (new string[] {
+				"+  +--+--+--+",
+				"|     |     |",
+				"|     |     |",
+				"+--+  +     +",
+				"|  |  |     |",
+				"|  |  |     |",
+				"+--+  +--+--+",
+				"            |",
+				"            |",
+				"+--+--+--+--+",
+			}, maze.StrLines(3));
 		}
 	}
 

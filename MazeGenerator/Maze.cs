@@ -38,10 +38,10 @@ namespace Treboada.Net.Ia
 
         byte[] Cells;
 
-        public Maze(int rows, int cols, bool closed)
+        public Maze(int cols, int rows, bool closed)
         {
-            Rows = rows;
             Cols = cols;
+			Rows = rows;
             Count = rows * cols;
 
             Cells = new byte[Count];
@@ -55,15 +55,15 @@ namespace Treboada.Net.Ia
                 int br = rows - 1;
                 for (int c = 0; c < cols; c++)
                 {
-                    this[0, c] |= (byte)Direction.N;
-                    this[br, c] |= (byte)Direction.S;
+                    this[c, 0] |= (byte)Direction.N;
+                    this[c, br] |= (byte)Direction.S;
                 }
 
                 int bc = cols - 1;
                 for (int r = 0; r < rows; r++)
                 {
-                    this[r, 0] |= (byte)Direction.W;
-                    this[r, bc] |= (byte)Direction.E;
+                    this[0, r] |= (byte)Direction.W;
+                    this[bc, r] |= (byte)Direction.E;
                 }
             }
         }
@@ -74,85 +74,114 @@ namespace Treboada.Net.Ia
             private set { Cells[index] = value; }
         }
 
-        public byte this[int row, int col]
+        public byte this[int col, int row]
         {
             get { return Cells[(row * Cols) + col]; }
 			private set { Cells[(row * Cols) + col] = value; }
         }
 
-		public bool IsOpen(int row, int col, Direction wall)
+		public bool IsOpen(int col, int row, Direction wall)
         {
-            int cell = this[row, col];
+            int cell = this[col, row];
             int mask = (int)wall;
             return ((cell & mask) == 0);
         }
 
-		public void SetWall(int row, int col, Direction wall)
+		public void SetWall(int col, int row, Direction wall)
 		{
-			int cell = this [row, col];
+			int cell = this [col, row];
 			int mask = (int)wall;
-			this[row, col] = (byte)(cell | mask);
+			this[col, row] = (byte)(cell | mask);
 		}
 
-		public void UnsetWall(int row, int col, Direction wall)
+		public void UnsetWall(int col, int row, Direction wall)
 		{
-			int cell = this [row, col];
+			int cell = this [col, row];
 			int mask = (int)wall;
-			this[row, col] = (byte)(cell & ~mask);
+			this[col, row] = (byte)(cell & ~mask);
 		}
 
         public string[] StrLines(int cellSize)
         {
-            string[] lines = new string[Rows * cellSize];
+			string[] lines = new string[(Rows * cellSize) + 1];
 
-			int capacity = cellSize * cellSize * Rows * Cols;
-            StringBuilder buffer = new StringBuilder(capacity);
-			buffer.Append (' ', capacity);
+			char[,] buffer = new char[(Cols * cellSize) + 1, (Rows * cellSize) + 1];
+			for (int yy = buffer.GetLength(1) - 1; yy >= 0; yy--) {
+				for (int xx = buffer.GetLength(0) - 1; xx >= 0; xx--) {
+					buffer [xx, yy] = ' ';
+				}
+			}
+
+
 
             for (int r = 0; r < Rows; r++)
             {
                 for (int c = 0; c < Cols; c++)
                 {
-                    BuildStringCell(buffer, r, c, cellSize);
+                    BuildStringCell(buffer, c, r, cellSize);
                 }
             }
 
-            char[] str = buffer.ToString().ToCharArray();
-
-            for (int r = 0; r < Rows; r++)
-            {
-                for (int rr = 0; rr < cellSize; rr++)
-                {
-                    int l = (r * cellSize) + rr;
-                    lines[l] = new string(str, (l * Cols), (cellSize * Cols));
-                }
+			int length = Cols * cellSize + 1;
+            for (int r = 0; r < Rows; r++) {
+				for (int rr = 0; rr <= cellSize; rr++) {
+					int l = (r * cellSize) + rr;
+					StringBuilder lineBuffer = new StringBuilder(length + 1);
+					for (int c = 0; c < length; c++) {
+						lineBuffer.Append(buffer[c, l]);
+					}
+					lines[l] = lineBuffer.ToString();
+				}
             }
 
             return lines;
         }
 
-        private void BuildStringCell(StringBuilder str, int r, int c, int cellSize)
+		private void BuildStringCell(char[,] buffer, int col, int row, int cellSize)
         {
-			int topLeft = (r * Cols * cellSize) + (c * cellSize);
+			int x = col * cellSize;
+			int y = row * cellSize;
 
-            if (!IsOpen(r, c, Direction.N))
+            if (!IsOpen(col, row, Direction.N))
             {
-                int w = ((r * Cols) + c) * cellSize;
-                for (int p = 0; p < cellSize; p++)
+				buffer[x, y] = '+';
+                for (int c = 1; c < cellSize; c++)
                 {
-                    str[(w + p)] = '+';
+                    buffer[x + c, y] = '-';
                 }
+				buffer[x + cellSize, y] = '+';
             }
 
-			if (!IsOpen(r, c, Direction.S))
-            {
-                int w = ((r * Cols) + c) * cellSize;
-                for (int p = 0; p < cellSize; p++)
-                {
-                    str[(w + p)] = '+';
-                }
-            }
-        }
+			if (!IsOpen(col, row, Direction.S))
+			{
+				buffer[x, y + cellSize] = '+';
+				for (int c = 1; c < cellSize; c++)
+				{
+					buffer[x + c, y + cellSize] = '-';
+				}
+				buffer[x + cellSize, y + cellSize] = '+';
+			}
+
+			if (!IsOpen(col, row, Direction.W))
+			{
+				buffer[x, y] = '+';
+				for (int c = 1; c < cellSize; c++)
+				{
+					buffer[x, y + c] = '|';
+				}
+				buffer[x, y + cellSize] = '+';
+			}
+
+			if (!IsOpen(col, row, Direction.E))
+			{
+				buffer[x + cellSize, y] = '+';
+				for (int c = 1; c < cellSize; c++)
+				{
+					buffer[x + cellSize, y + c] = '|';
+				}
+				buffer[x + cellSize, y + cellSize] = '+';
+			}
+		}
 
     }
 
