@@ -196,15 +196,22 @@ namespace Treboada.Net.Ia
                 }
             }
 
+			// A and B marks
+			buffer [cellSizeWidth / 2, cellSizeHeight / 2] = 'A';
+			buffer [Cols * cellSizeWidth / 2, Rows * cellSizeHeight / 2] = 'B';
+
 			// convert the big buffer to an array of lines
 			int length = Cols * cellSizeWidth + 1;
             for (int r = 0; r < Rows; r++) {
 				for (int rr = 0; rr <= cellSizeHeight; rr++) {
+
 					int l = (r * cellSizeHeight) + rr;
 					StringBuilder lineBuffer = new StringBuilder(length + 1);
+
 					for (int c = 0; c < length; c++) {
 						lineBuffer.Append(buffer[c, l]);
 					}
+
 					lines[l] = lineBuffer.ToString();
 				}
             }
