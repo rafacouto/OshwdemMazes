@@ -41,6 +41,24 @@ namespace Treboada.Net.Ia
 			}
 
 		}
+
+		[Test()]
+		public void TestStringBuilder ()
+		{
+			Maze maze = new Maze (2, 2, false);
+
+			string[] lines = {
+				"      ",
+				"      ",
+				"      ",
+				"      ",
+				"      ",
+				"      ",
+			};
+			Assert.AreEqual (lines, maze.StrLines(3));
+
+		}
 	}
+
 }
 
