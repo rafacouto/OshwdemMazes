@@ -31,14 +31,14 @@ namespace Treboada.Net.Ia
 		public const byte Cell_ESW = 14;
 		public const byte Cell_NESW = 15;
 
-        public uint Rows { get; private set; }
-        public uint Cols { get; private set; }
+        public int Rows { get; private set; }
+        public int Cols { get; private set; }
 
-		public uint Count { get; private set; }
+		public int Count { get; private set; }
 
         byte[] Cells;
 
-        public Maze(uint rows, uint cols, bool closed)
+        public Maze(int rows, int cols, bool closed)
         {
             Rows = rows;
             Cols = cols;
@@ -52,15 +52,15 @@ namespace Treboada.Net.Ia
 
 			if (closed) 
             {
-                uint br = rows - 1;
-                for (uint c = 0; c < cols; c++)
+                int br = rows - 1;
+                for (int c = 0; c < cols; c++)
                 {
                     this[0, c] |= (byte)Direction.N;
                     this[br, c] |= (byte)Direction.S;
                 }
 
-                uint bc = cols - 1;
-                for (uint r = 0; r < rows; r++)
+                int bc = cols - 1;
+                for (int r = 0; r < rows; r++)
                 {
                     this[r, 0] |= (byte)Direction.W;
                     this[r, bc] |= (byte)Direction.E;
@@ -68,33 +68,50 @@ namespace Treboada.Net.Ia
             }
         }
 
-        public byte this[uint index]
+        public byte this[int index]
         {
             get { return Cells[index]; }
             private set { Cells[index] = value; }
         }
 
-        public byte this[uint row, uint col]
+        public byte this[int row, int col]
         {
             get { return Cells[(row * Cols) + col]; }
 			private set { Cells[(row * Cols) + col] = value; }
         }
 
-        public bool IsOpen(uint row, uint col, Direction dir)
+		public bool IsOpen(int row, int col, Direction wall)
         {
             int cell = this[row, col];
-            int mask = (int)dir;
+            int mask = (int)wall;
             return ((cell & mask) == 0);
         }
+
+		public void SetWall(int row, int col, Direction wall)
+		{
+			int cell = this [row, col];
+			int mask = (int)wall;
+			this[row, col] = (byte)(cell | mask);
+		}
+
+		public void UnsetWall(int row, int col, Direction wall)
+		{
+			int cell = this [row, col];
+			int mask = (int)wall;
+			this[row, col] = (byte)(cell & ~mask);
+		}
 
         public string[] StrLines(int cellSize)
         {
             string[] lines = new string[Rows * cellSize];
 
-            StringBuilder buffer = new StringBuilder((int)(cellSize * cellSize * Rows * Cols));
-            for (uint r = 0; r < Rows; r++)
+			int capacity = cellSize * cellSize * Rows * Cols;
+            StringBuilder buffer = new StringBuilder(capacity);
+			buffer.Append (' ', capacity);
+
+            for (int r = 0; r < Rows; r++)
             {
-                for (uint c = 0; c < Cols; c++)
+                for (int c = 0; c < Cols; c++)
                 {
                     BuildStringCell(buffer, r, c, cellSize);
                 }
@@ -107,30 +124,32 @@ namespace Treboada.Net.Ia
                 for (int rr = 0; rr < cellSize; rr++)
                 {
                     int l = (r * cellSize) + rr;
-                    lines[l] = new string(str, l * (int)Cols, (int)Cols);
+                    lines[l] = new string(str, (l * Cols), (cellSize * Cols));
                 }
             }
 
             return lines;
         }
 
-        private void BuildStringCell(StringBuilder str, uint r, uint c, int cellSize)
+        private void BuildStringCell(StringBuilder str, int r, int c, int cellSize)
         {
-            if (((int)this[r, c] & (int)Direction.N) != 0)
+			int topLeft = (r * Cols * cellSize) + (c * cellSize);
+
+            if (!IsOpen(r, c, Direction.N))
             {
-                int w = (int)((r * Cols) + c) * cellSize;
+                int w = ((r * Cols) + c) * cellSize;
                 for (int p = 0; p < cellSize; p++)
                 {
-                    str[w + p] = '+';
+                    str[(w + p)] = '+';
                 }
             }
 
-            if (((int)this[r, c] & (int)Direction.S) != 0)
+			if (!IsOpen(r, c, Direction.S))
             {
-                int w = (int)((r * Cols) + c) * cellSize;
+                int w = ((r * Cols) + c) * cellSize;
                 for (int p = 0; p < cellSize; p++)
                 {
-                    str[w + p] = '+';
+                    str[(w + p)] = '+';
                 }
             }
         }
