@@ -101,6 +101,17 @@ namespace Treboada.Net.Ia
 			this[col, row] = (byte)(cell & ~mask);
 		}
 
+		public override string ToString ()
+		{
+			StringBuilder str = new StringBuilder ();
+
+			foreach (string s in StrLines(3)) {
+				str.AppendLine (s);
+			}
+
+			return str.ToString ();
+		}
+
         public string[] StrLines(int cellSize)
         {
 			string[] lines = new string[(Rows * cellSize) + 1];
