@@ -10,7 +10,7 @@ namespace Treboada.Net.Ia
 		public void TestProperties ()
 		{
 			// constructor
-			Maze maze = new Maze (10, 13, false);
+			Maze maze = new Maze (10, 13, Maze.WallInit.None);
 
 			// size
 			Assert.AreEqual (maze.Count, 13*10);
@@ -42,12 +42,12 @@ namespace Treboada.Net.Ia
 		{
 			Maze maze;
 
-			maze = new Maze (2, 2, false);
+			maze = new Maze (2, 2, Maze.WallInit.None);
 			for (int c = 0; c < maze.Count; c++) {
 				Assert.AreEqual (maze[c], Maze.Cell_0);
 			}
 
-			maze = new Maze (3, 3, true);
+			maze = new Maze (3, 3, Maze.WallInit.Perimeter);
 			byte[] expected = new byte[] { 
 				Maze.Cell_NW, Maze.Cell_N, Maze.Cell_NE,
 				Maze.Cell_W, Maze.Cell_0, Maze.Cell_E,
@@ -64,7 +64,7 @@ namespace Treboada.Net.Ia
 		{
 			Maze maze;
 
-			maze = new Maze (2, 2, false);
+			maze = new Maze (2, 2, Maze.WallInit.None);
 			Assert.AreEqual (new string[] {
 				"     ",
 				"     ",
@@ -73,7 +73,7 @@ namespace Treboada.Net.Ia
 				"     ",
 			}, maze.StrLines(2, 2));
 
-			maze = new Maze (2, 2, true);
+			maze = new Maze (2, 2, Maze.WallInit.Perimeter);
 			Assert.AreEqual (new string[] {
 				"+--+--+",
 				"|     |",
@@ -82,7 +82,7 @@ namespace Treboada.Net.Ia
 				"+--+--+",
 			}, maze.StrLines(3, 2));
 
-			maze = new Maze (3, 3, true);
+			maze = new Maze (3, 3, Maze.WallInit.Perimeter);
 			Assert.AreEqual (new string[] {
 				"+--+--+--+",
 				"|        |",
@@ -96,7 +96,7 @@ namespace Treboada.Net.Ia
 				"+--+--+--+",
 			}, maze.StrLines(3, 3));
 
-			maze = new Maze (4, 3, true);
+			maze = new Maze (4, 3, Maze.WallInit.Perimeter);
 			maze.UnsetWall (0, 0, Maze.Direction.N);
 			maze.UnsetWall (0, 2, Maze.Direction.W);
 			maze.SetWall (0, 0, Maze.Direction.S);
@@ -107,17 +107,17 @@ namespace Treboada.Net.Ia
 			maze.SetWall (2, 2, Maze.Direction.N);
 			maze.SetWall (3, 2, Maze.Direction.N);
 			Assert.AreEqual (new string[] {
-				"+  +--+--+--+",
-				"|     |     |",
-				"|     |     |",
-				"+--+  +     +",
-				"|  |  |     |",
-				"|  |  |     |",
-				"+--+  +--+--+",
-				"            |",
-				"            |",
-				"+--+--+--+--+",
-			}, maze.StrLines(3, 3));
+				"+   +---+---+---+",
+				"|       |       |",
+				"|       |       |",
+				"+---+   +       +",
+				"|   |   |       |",
+				"|   |   |       |",
+				"+---+   +---+---+",
+				"                |",
+				"                |",
+				"+---+---+---+---+",
+			}, maze.StrLines(4, 3));
 		}
 	}
 

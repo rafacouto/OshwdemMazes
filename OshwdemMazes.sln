@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGenerator", "MazeGenerator\MazeGenerator.csproj", "{01F26D58-E679-4570-83FD-95155C77BA4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeTest", "MazeTest\MazeTest.csproj", "{7D71CF3E-BD91-460A-8FD9-904957206439}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{01F26D58-E679-4570-83FD-95155C77BA4B}.Debug|x86.Build.0 = Debug|x86
 		{01F26D58-E679-4570-83FD-95155C77BA4B}.Release|x86.ActiveCfg = Release|x86
 		{01F26D58-E679-4570-83FD-95155C77BA4B}.Release|x86.Build.0 = Release|x86
+		{7D71CF3E-BD91-460A-8FD9-904957206439}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D71CF3E-BD91-460A-8FD9-904957206439}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D71CF3E-BD91-460A-8FD9-904957206439}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D71CF3E-BD91-460A-8FD9-904957206439}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = MazeGenerator\MazeGenerator.csproj

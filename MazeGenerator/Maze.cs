@@ -5,6 +5,7 @@ namespace Treboada.Net.Ia
 {
     public class Maze
     {
+		// bit mapped directions
         public enum Direction : byte
         {
             N = 1 << 0,
@@ -12,6 +13,14 @@ namespace Treboada.Net.Ia
             S = 1 << 2,
             W = 1 << 3,
         }
+
+		// wall configuration at contructor
+		public enum WallInit
+		{
+			None,
+			Perimeter,
+			Full,
+		}
 
 		// possible wall configurations
 		public const byte Cell_0 = 0;
@@ -31,41 +40,53 @@ namespace Treboada.Net.Ia
 		public const byte Cell_ESW = 14;
 		public const byte Cell_NESW = 15;
 
+		// dimensions
         public int Rows { get; private set; }
         public int Cols { get; private set; }
 
+		// count of cells
 		public int Count { get; private set; }
 
+		// the cells
         byte[] Cells;
 
-        public Maze(int cols, int rows, bool closed)
+		// constructor
+		public Maze(int cols, int rows, WallInit init)
         {
+			// basic properties
             Cols = cols;
 			Rows = rows;
             Count = rows * cols;
 
+			// array with the cells
             Cells = new byte[Count];
-			for (int c = 0; c < Count; c++)
-			{
-				Cells[c] = Cell_0;
+
+			if (init == WallInit.Perimeter) {
+
+				// top and down
+				int br = rows - 1;
+				for (int c = 0; c < cols; c++) {
+					this [c, 0] |= (byte)Direction.N;
+					this [c, br] |= (byte)Direction.S;
+				}
+
+				// left and right
+				int bc = cols - 1;
+				for (int r = 0; r < rows; r++) {
+					this [0, r] |= (byte)Direction.W;
+					this [bc, r] |= (byte)Direction.E;
+				}
+
+			} else if (init == WallInit.Full) {
+
+				for (int r = 0; r < rows; r++) {
+					for (int c = 0; c < cols; c++) {
+
+						// four sides
+						this [r, c] = Cell_NESW;
+					}
+				}
 			}
-
-			if (closed) 
-            {
-                int br = rows - 1;
-                for (int c = 0; c < cols; c++)
-                {
-                    this[c, 0] |= (byte)Direction.N;
-                    this[c, br] |= (byte)Direction.S;
-                }
-
-                int bc = cols - 1;
-                for (int r = 0; r < rows; r++)
-                {
-                    this[0, r] |= (byte)Direction.W;
-                    this[bc, r] |= (byte)Direction.E;
-                }
-            }
         }
 
         public byte this[int index]
@@ -98,13 +119,18 @@ namespace Treboada.Net.Ia
 			int mask = (int)wall;
 			this[col, row] = (byte)(cell | mask);
 
+			// neighbour walls
 			if (first) {
+
 				if (wall == Direction.N && row > 0)
 					SetWall (col, row - 1, Direction.S, false);
+
 				if (wall == Direction.W && col > 0)
 					SetWall (col - 1, row, Direction.E, false);
+
 				if (wall == Direction.S && row < Rows - 1)
 					SetWall (col, row + 1, Direction.N, false);
+
 				if (wall == Direction.E && col < Cols - 1)
 					SetWall (col + 1, row, Direction.W, false);
 			}
@@ -121,13 +147,18 @@ namespace Treboada.Net.Ia
 			int mask = (int)wall;
 			this[col, row] = (byte)(cell & ~mask);
 
+			// neighbour walls
 			if (first) {
+
 				if (wall == Direction.N && row > 0)
 					UnsetWall (col, row - 1, Direction.S, false);
+
 				if (wall == Direction.W && col > 0)
 					UnsetWall (col - 1, row, Direction.E, false);
+
 				if (wall == Direction.S && row < Rows - 1)
 					UnsetWall (col, row + 1, Direction.N, false);
+
 				if (wall == Direction.E && col < Cols - 1)
 					UnsetWall (col + 1, row, Direction.W, false);
 			}
@@ -148,6 +179,7 @@ namespace Treboada.Net.Ia
         {
 			string[] lines = new string[(Rows * cellSizeHeight) + 1];
 
+			// the big buffer of chars
 			char[,] buffer = new char[(Cols * cellSizeWidth) + 1, (Rows * cellSizeHeight) + 1];
 			for (int yy = buffer.GetLength(1) - 1; yy >= 0; yy--) {
 				for (int xx = buffer.GetLength(0) - 1; xx >= 0; xx--) {
@@ -155,8 +187,7 @@ namespace Treboada.Net.Ia
 				}
 			}
 
-
-
+			// render every cell
             for (int r = 0; r < Rows; r++)
             {
                 for (int c = 0; c < Cols; c++)
@@ -165,6 +196,7 @@ namespace Treboada.Net.Ia
                 }
             }
 
+			// convert the big buffer to an array of lines
 			int length = Cols * cellSizeWidth + 1;
             for (int r = 0; r < Rows; r++) {
 				for (int rr = 0; rr <= cellSizeHeight; rr++) {
@@ -185,6 +217,7 @@ namespace Treboada.Net.Ia
 			int x = col * cellSizeWidth;
 			int y = row * cellSizeHeight;
 
+			// top
             if (!IsOpen(col, row, Direction.N))
             {
 				buffer[x, y] = '+';
@@ -195,6 +228,7 @@ namespace Treboada.Net.Ia
 				buffer[x + cellSizeWidth, y] = '+';
             }
 
+			// bottom
 			if (!IsOpen(col, row, Direction.S))
 			{
 				buffer[x, y + cellSizeHeight] = '+';
@@ -205,6 +239,7 @@ namespace Treboada.Net.Ia
 				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
 			}
 
+			// left
 			if (!IsOpen(col, row, Direction.W))
 			{
 				buffer[x, y] = '+';
@@ -215,6 +250,7 @@ namespace Treboada.Net.Ia
 				buffer[x, y + cellSizeHeight] = '+';
 			}
 
+			// right
 			if (!IsOpen(col, row, Direction.E))
 			{
 				buffer[x + cellSizeWidth, y] = '+';
