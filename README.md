@@ -6,6 +6,8 @@ One of the contest is the _Maze with robots_. This program is intended to be the
 
 The source code is published so that you can study and generate mazes in order to audit the code and practice with maze configurations similar to the competition ones.
 
+![Executing Maze Generator](img01.png)
+
 
 
 ## Run the Maze Generator
