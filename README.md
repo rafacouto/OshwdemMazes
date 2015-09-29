@@ -12,13 +12,15 @@ The source code is published so that you can study and generate mazes in order t
 
 ## Run the Maze Generator
 
+You need a GNU/Linux distribution and Mono.NET runtime to execute the Maze Generator. Current version is fully tested with [Meikian 1.1 Live][MEI01].
+
 There is a precompiled .NET binary and it should be enought to execute the program: _MazeGenerator.exe_ Try to execute with the command:
 
     mono MazeGenerator.exe
 
 If something was wrong with the command, you probably need the Mono runtime. Debian flavours provide a Mono package and it is easy to install:
 
-    sudo apt-get install mono-runtime
+    sudo apt-get install mono-complete
 
 See [the official _How to install Mono_][MON01] if you have another GNU/Linux distro.
 
@@ -62,6 +64,8 @@ Save the maze in a file at the moment of generate it:
 
 
 
-
+[MEI01]: http://meikian.eu/
 [MON01]: http://www.mono-project.com/docs/getting-started/install/linux/
 [OSH01]: http://oshwdem.org/
+
+
