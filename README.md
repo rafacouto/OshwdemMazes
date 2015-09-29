@@ -1,6 +1,6 @@
 # OSHWDEM Mazes
 
-[OpenSource Hardware Demonstration][OSH01] by [Bricolabs Group][BRI01] is the most important barcamp of makers in Galicia. Since 2014, there are robot challenges and everybody is invited to participate.
+[OpenSource Hardware Demonstration][OSH01] by [Bricolabs Group][BRI01] is the most important barcamp of makers in Galicia. Since 2014, there are robot challenges and [everybody is invited to participate][CON01].
 
 ![Constructed maze](img/maze.png)
 
@@ -15,9 +15,9 @@ The source code is published so that you can study and generate mazes in order t
 
 You need a GNU/Linux distribution and Mono.NET runtime to execute the Maze Generator. 
 
-Current version is fully tested with [Meikian 1.1 Live][MEI01] and we encourage you to test this fantastic GNU/Linux distro focused on makers.
+Current version is fully tested with [Meikian Live][MEI01] and we encourage you to test this fantastic GNU/Linux distro focused on makers.
 
-Get the precompilated Mono.NET binary file from Github:
+Get the precompilated binary file from Github:
 
     wget https://github.com/brico-labs/OshwdemMazes/blob/master/precompiled/MazeGenerator.exe
 
@@ -77,7 +77,17 @@ Save the maze in a file at the moment of generate it:
 
 
 
+## Issues
+
+Bug reports or suggestions [are welcome][ISS01].
+
+
+
+
+
 [BRI01]: http://bricolabs.cc/
+[CON01]: http://oshwdem.org/concursos/
+[ISS01]: https://github.com/brico-labs/OshwdemMazes/issues
 [MEI01]: http://meikian.eu/
 [MON01]: http://www.mono-project.com/docs/getting-started/install/linux/
 [OSH01]: http://oshwdem.org/
