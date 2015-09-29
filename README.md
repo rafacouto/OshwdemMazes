@@ -2,11 +2,11 @@
 
 [OpenSource Hardware Demonstration][OSH01] by [Bricolabs Group][BRI01] is the most important barcamp of makers in Galicia. Since 2014, there are robot challenges and everybody is invited to participate.
 
-![Sumo battles 2014](http://oshwdem.org/wp-content/uploads/2014/11/bots.jpg)
+![Constructed maze](img/maze.png)
 
 One of the contest is the _Maze with robots_. This program is intended to be the maze generator according to the specific rules of the contest. It is compiled and executed on the big screen just in the beginning of the competition and the real maze is configured with the walls as shown on the big screen.
 
-![Executing Maze Generator](img/img01.png)
+![Executing Maze Generator](img/console.png)
 
 The source code is published so that you can study and generate mazes in order to audit the code and practice with maze configurations similar to the competition ones.
 
