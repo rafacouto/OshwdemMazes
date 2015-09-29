@@ -10,7 +10,7 @@
     <RootNamespace>Treboada.Net.Ia</RootNamespace>
     <AssemblyName>MazeGenerator</AssemblyName>
     <StartupObject>Treboada.Net.Ia.Oshwdem</StartupObject>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
