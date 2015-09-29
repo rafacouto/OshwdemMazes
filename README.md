@@ -41,5 +41,27 @@ Version 3 of the GNU General Public License (GPLv3). See LICENSE.txt.
 
 
 
+## Extra commands
+
+Command line forever!
+
+
+### Massive maze generation
+
+Generate 10 mazes and save them in a file:
+
+    for T in $(seq 10) ; do echo "Thanks" | mono MazeGenerator.exe >> mazes.txt ; done
+
+
+### Show and save at the same time
+
+Save the maze in a file at the moment of generate it:
+
+    mono MazeGenerator.exe | tee -a mazes.txt
+
+
+
+
+
 [MON01]: http://www.mono-project.com/docs/getting-started/install/linux/
 [OSH01]: http://oshwdem.org/
