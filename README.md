@@ -8,7 +8,7 @@ One of the contest is the _Maze with robots_. This program is intended to be the
 
 ![Executing Maze Generator](img/console.png)
 
-The source code is published so that you can study and generate mazes in order to audit the code and practice with maze configurations similar to the competition ones.
+The source code is published so that you can study and generate mazes in order to audit the program and practice with maze configurations similar to the competition ones.
 
 
 ## Prepare the environment
@@ -17,7 +17,7 @@ You need a GNU/Linux distribution and Mono.NET runtime to execute the Maze Gener
 
 Current version is fully tested with [Meikian Live][MEI01] and we encourage you to test this fantastic GNU/Linux distro focused on makers.
 
-Get the precompilated binary file from Github:
+Get the precompiled binary file from Github:
 
     wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
 
@@ -71,7 +71,7 @@ Generate 10 mazes and save them in a file:
 
 ### Show and save at the same time
 
-Save the maze in a file at the moment of generate it:
+Save the maze in a file at the moment of generation:
 
     mono MazeGenerator.exe | tee -a mazes.txt
 
