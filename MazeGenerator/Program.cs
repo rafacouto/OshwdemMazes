@@ -45,6 +45,9 @@ namespace Treboada.Net.Ia
 			// generate from top-left corner
 			generator.Generate (0, 0);
 
+			// show the version
+			Console.WriteLine ("OSHWDEM Maze Generator v{0}.{1} R{2}", Version.Major, Version.Minor, Version.Revision);
+
 			// output to the console
 			Console.Write (maze);
 
@@ -93,6 +96,11 @@ namespace Treboada.Net.Ia
 			generator.SetVisited (7, 7, true);
 
 			return generator;
+		}
+
+
+		public static Version Version { 
+			get { return System.Reflection.Assembly.GetEntryAssembly().GetName().Version; } 
 		}
 	}
 }
