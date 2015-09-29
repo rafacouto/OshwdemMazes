@@ -10,11 +10,23 @@ The source code is published so that you can study and generate mazes in order t
 
 
 
+## Prepare the environment
+
+You need a GNU/Linux distribution and Mono.NET runtime to execute the Maze Generator. 
+
+Current version is fully tested with [Meikian 1.1 Live][MEI01] and we encourage you to test this fantastic GNU/Linux distro focused on makers.
+
+Get the precompilated Mono.NET binary file from Github:
+
+    wget https://github.com/brico-labs/OshwdemMazes/blob/master/MazeGenerator.exe
+
+Maximize the terminal window to view all the maze on screen.
+
+
+
 ## Run the Maze Generator
 
-You need a GNU/Linux distribution and Mono.NET runtime to execute the Maze Generator. Current version is fully tested with [Meikian 1.1 Live][MEI01].
-
-There is a precompiled .NET binary and it should be enought to execute the program: _MazeGenerator.exe_ Try to execute with the command:
+The precompiled .NET binary is Mono.NET 4.0 compatible. Try to execute it with the command:
 
     mono MazeGenerator.exe
 
@@ -35,6 +47,7 @@ Source code includes a _OshwdemMazes.sln_ file. Install MonoDevelop, open it and
 To install MonoDevelop:
 
     sudo apt-get install monodevelop
+
 
 
 ## License
