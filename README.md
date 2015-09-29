@@ -19,7 +19,7 @@ Current version is fully tested with [Meikian Live][MEI01] and we encourage you 
 
 Get the precompilated binary file from Github:
 
-    wget https://github.com/brico-labs/OshwdemMazes/blob/master/precompiled/MazeGenerator.exe
+    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
 
 Maximize the terminal window to view all the maze on screen.
 
@@ -35,7 +35,7 @@ If something was wrong with the command, you probably need the Mono runtime. Deb
 
     sudo apt-get install mono-complete
 
-See [the official _How to install Mono_][MON01] if you have another GNU/Linux distro.
+See the official [_How to install Mono_][MON01] if you have another OS distro.
 
 Note for Windoze users: it should work from a console. However, we do NOT offer support for privative operating systems.
 
