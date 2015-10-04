@@ -1,6 +1,8 @@
 # OSHWDEM Mazes
 
-[OpenSource Hardware Demonstration][OSH01] by [Bricolabs Group][BRI01] is the most important barcamp of makers in Galicia. Since 2014, there are robot challenges and [everybody is invited to participate][CON01].
+-[Versión en español](README.es.md)-
+
+[_OpenSource Hardware Demonstration_][OSH01] by [_Bricolabs Group_][BRI01] is the most important barcamp of makers in Galicia. Since 2014, there are robot challenges and [everybody is invited to participate][CON01].
 
 ![Constructed maze](img/maze.png)
 
@@ -13,11 +15,11 @@ The source code is published so that you can study and generate mazes in order t
 
 ## Prepare the environment
 
-You need a GNU/Linux distribution and Mono.NET runtime to execute the Maze Generator. 
+You need a _GNU/Linux_ distribution and _Mono.NET_ runtime to execute the _Maze Generator_. 
 
-Current version is fully tested with [Meikian Live][MEI01] and we encourage you to test this fantastic GNU/Linux distro focused on makers.
+Current version is fully tested with [_Meikian Live_][MEI01] and we encourage you to test this fantastic _GNU/Linux_ distro focused on makers.
 
-Get the precompiled binary file from Github:
+Get the precompiled binary file from _Github_:
 
     wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
 
@@ -27,25 +29,25 @@ Maximize the terminal window to view all the maze on screen.
 
 ## Run the Maze Generator
 
-The precompiled .NET binary is Mono.NET 4.0 compatible. Try to execute it with the command:
+The precompiled binary is _Mono.NET 4.0_ compatible. Try to execute it with the command:
 
     mono MazeGenerator.exe
 
-If something was wrong with the command, you probably need the Mono runtime. Debian flavours provide a Mono package and it is easy to install:
+If something was wrong with the command, you probably need the _Mono runtime_. _Debian_ flavours provide a _Mono package_ and it is easy to install:
 
     sudo apt-get install mono-complete
 
 See the official [_How to install Mono_][MON01] if you have another OS distro.
 
-Note for Windoze users: it should work from a console. However, we do NOT offer support for privative operating systems.
+Note for _Windoze and Osex users_: it should work from a console. However, we do NOT offer support for privative operating systems.
 
 
 
 ## Compile the Maze Generator
 
-Source code includes a _OshwdemMazes.sln_ file. Install MonoDevelop, open it and build the code. It generates a new binary under the _bin_ folder.
+Source code includes a _OshwdemMazes.sln_ file. Install _MonoDevelop_, open it and build the project. It generates a new binary under the _bin_ folder.
 
-To install MonoDevelop:
+To install _MonoDevelop_:
 
     sudo apt-get install monodevelop
 
@@ -53,7 +55,7 @@ To install MonoDevelop:
 
 ## License
 
-Version 3 of the GNU General Public License (GPLv3). See LICENSE.txt.
+Version 3 of the _GNU General Public License (GPLv3)_. See [_LICENSE.txt_](LICENSE.txt).
 
 
 
