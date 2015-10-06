@@ -189,14 +189,14 @@ namespace Treboada.Net.Ia
 		{
 			StringBuilder str = new StringBuilder ();
 
-			foreach (string s in StrLines(4, 2)) {
+			foreach (string s in StrLines(4, 2, true)) {
 				str.AppendLine (s);
 			}
 
 			return str.ToString ();
 		}
 
-		public string[] StrLines(int cellSizeWidth, int cellSizeHeight)
+		public string[] StrLines(int cellSizeWidth, int cellSizeHeight, bool abMarks)
         {
 			string[] lines = new string[(Rows * cellSizeHeight) + 1];
 
@@ -218,8 +218,11 @@ namespace Treboada.Net.Ia
             }
 
 			// A and B marks
-			buffer [cellSizeWidth / 2, cellSizeHeight / 2] = 'A';
-			buffer [Cols * cellSizeWidth / 2, Rows * cellSizeHeight / 2] = 'B';
+            if (abMarks)
+            {
+                buffer[cellSizeWidth / 2, cellSizeHeight / 2] = 'A';
+                buffer[Cols * cellSizeWidth / 2, Rows * cellSizeHeight / 2] = 'B';
+            }
 
 			// convert the big buffer to an array of lines
 			int length = Cols * cellSizeWidth + 1;
