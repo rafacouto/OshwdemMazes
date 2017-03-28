@@ -29,7 +29,7 @@ Maximiza la ventana de terminal para ver todo el laberinto en pantalla.
 
 ## Ejecutar Maze Generator
 
-El binario precompilado es compatible con _Mono.NET 4.0_. Ejecútalo con la siguiente orden:
+El binario precompilado es compatible con _Mono.NET 4.5_. Ejecútalo con la siguiente orden:
 
     mono MazeGenerator.exe
 

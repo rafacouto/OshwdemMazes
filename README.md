@@ -29,7 +29,7 @@ Maximize the terminal window to view all the maze on screen.
 
 ## Run the Maze Generator
 
-The precompiled binary is _Mono.NET 4.0_ compatible. Try to execute it with the command:
+The precompiled binary is _Mono.NET 4.5_ compatible. Try to execute it with the command:
 
     mono MazeGenerator.exe
 
