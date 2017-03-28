@@ -15,13 +15,11 @@ The source code is published so that you can study and generate mazes in order t
 
 ## Prepare the environment
 
-You need a _GNU/Linux_ distribution and _Mono.NET_ runtime to execute the _Maze Generator_. 
-
-Current version is fully tested with [_Meikian Live_][MEI01] and we encourage you to test this fantastic _GNU/Linux_ distro focused on makers.
+You need a _GNU/Linux_ distribution and _Mono.NET_ runtime to execute the _Maze Generator_. Current version is fully tested with Debian.
 
 Get the precompiled binary file from _Github_:
 
-    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
+    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
 
 Maximize the terminal window to view all the maze on screen.
 
