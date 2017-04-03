@@ -34,10 +34,10 @@ namespace Treboada.Net.Ia
 		private void Run()
 		{
 			// create a square maze with 13 cells on every side
-			Maze maze = CreateMaze (13);
+			Maze maze = CreateMaze (16);
 
 			// the finish door
-			maze.UnsetWall (6, 8, Maze.Direction.N);
+			maze.UnsetWall (8, 8, Maze.Direction.S);
 
 			// prepare de generator
 			MazeGenerator generator = SetupGenerator (maze);
@@ -61,19 +61,11 @@ namespace Treboada.Net.Ia
 			// square and fully walled
 			Maze maze = new Maze (side, side, Maze.WallInit.Full);
 
-			// clear the walls inside 3x3 center cells
-			maze.UnsetWall (5, 5, Maze.Direction.S);
-			maze.UnsetWall (5, 5, Maze.Direction.E);
-			maze.UnsetWall (6, 5, Maze.Direction.S);
-			maze.UnsetWall (6, 5, Maze.Direction.E);
-			maze.UnsetWall (7, 5, Maze.Direction.S);
-			maze.UnsetWall (5, 6, Maze.Direction.S);
-			maze.UnsetWall (5, 6, Maze.Direction.E);
-			maze.UnsetWall (6, 6, Maze.Direction.S);
-			maze.UnsetWall (6, 6, Maze.Direction.E);
-			maze.UnsetWall (7, 6, Maze.Direction.S);
-			maze.UnsetWall (5, 7, Maze.Direction.E);
-			maze.UnsetWall (6, 7, Maze.Direction.E);
+			// clear the walls inside 2x2 center cells
+			maze.UnsetWall (7, 7, Maze.Direction.S);
+			maze.UnsetWall (7, 7, Maze.Direction.E);
+			maze.UnsetWall (8, 7, Maze.Direction.S);
+			maze.UnsetWall (7, 8, Maze.Direction.E);
 
 			return maze;
 		}
@@ -85,15 +77,10 @@ namespace Treboada.Net.Ia
 			DepthFirst generator = new DepthFirst (maze);
 
 			// dont enter into the 3x3 center
-			generator.SetVisited (5, 5, true);
-			generator.SetVisited (6, 5, true);
-			generator.SetVisited (7, 5, true);
-			generator.SetVisited (5, 6, true);
-			generator.SetVisited (6, 6, true);
-			generator.SetVisited (7, 6, true);
-			generator.SetVisited (5, 7, true);
-			generator.SetVisited (6, 7, true);
 			generator.SetVisited (7, 7, true);
+			generator.SetVisited (8, 7, true);
+			generator.SetVisited (7, 8, true);
+			generator.SetVisited (8, 8, true);
 
 			return generator;
 		}

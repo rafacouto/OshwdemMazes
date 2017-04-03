@@ -15,13 +15,11 @@ El código fuente se publica para que se pueda estudiar y generar laberintos par
 
 ## Preparar el entorno
 
-Necesitas una distribución _GNU/Linux_ y el entorno de ejecución _Mono.net_ para ejecutar _Maze Generator_.
-
-La versión actual está probada a fondo con [_Meikian Live_][MEI01] y te recomendamos probar esta fantástica distribución _GNU/Linux_ pensada para makers.
+Necesitas una distribución _GNU/Linux_ y el entorno de ejecución _Mono.net_ para ejecutar _Maze Generator_. La versión actual está probada a fondo con Debian.
 
 Obtén el binario precompilado desde _Github_:
 
-    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
+    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
 
 Maximiza la ventana de terminal para ver todo el laberinto en pantalla.
 
@@ -29,7 +27,7 @@ Maximiza la ventana de terminal para ver todo el laberinto en pantalla.
 
 ## Ejecutar Maze Generator
 
-El binario precompilado es compatible con _Mono.NET 4.0_. Ejecútalo con la siguiente orden:
+El binario precompilado es compatible con _Mono.NET 4.5_. Ejecútalo con la siguiente orden:
 
     mono MazeGenerator.exe
 
