@@ -42,8 +42,8 @@ namespace Treboada.Net.Ia
 			// prepare de generator
 			MazeGenerator generator = SetupGenerator (maze);
 
-			// generate from top-left corner
-			generator.Generate (0, 0);
+			// generate from top-left corner, next to the starting cell
+			generator.Generate (1, 0);
 
 			// show the version
 			Console.WriteLine ("OSHWDEM Maze Generator v{0}.{1} R{2}", Version.Major, Version.Minor, Version.Revision);
@@ -61,6 +61,9 @@ namespace Treboada.Net.Ia
 			// square and fully walled
 			Maze maze = new Maze (side, side, Maze.WallInit.Full);
 
+			// set the starting cell
+			maze.UnsetWall (0, 0, Maze.Direction.E);
+
 			// clear the walls inside 2x2 center cells
 			maze.UnsetWall (7, 7, Maze.Direction.S);
 			maze.UnsetWall (7, 7, Maze.Direction.E);
@@ -75,6 +78,9 @@ namespace Treboada.Net.Ia
 		{
 			// pretty algorithm to generate mazes
 			DepthFirst generator = new DepthFirst (maze);
+
+			// starting cell is set
+			generator.SetVisited (0, 0, true);
 
 			// dont enter into the 3x3 center
 			generator.SetVisited (7, 7, true);
