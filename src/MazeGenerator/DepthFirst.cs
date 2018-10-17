@@ -56,7 +56,7 @@ namespace Treboada.Net.Ia
 		public void Generate(int col, int row)
 		{
 			// explore recursively
-			VisitRec (col, row);
+			VisitRec (col, row, Maze.Direction.E);
 		}
 
 		private static Maze.Direction[] FourRoses = new Maze.Direction[] {
@@ -66,7 +66,7 @@ namespace Treboada.Net.Ia
 			Maze.Direction.W,
 		};
 
-		private void VisitRec(int col, int row)
+		private void VisitRec(int col, int row, Maze.Direction old_direction)
 		{
 			// mark visited
 			Visited [col, row] = true;
@@ -80,6 +80,12 @@ namespace Treboada.Net.Ia
 				// extract one from the list
 				int index = RndFactory.Next () % pending.Count;
 				Maze.Direction direction = pending[index];
+				for (int i = 0; i < 2; i++) {
+					if (direction != old_direction) {
+						index = RndFactory.Next () % pending.Count;
+						direction = pending [index];
+					}
+				}
 				pending.RemoveAt (index);
 
 				// relative to this cell
@@ -110,7 +116,7 @@ namespace Treboada.Net.Ia
 
 					// open the wall and explore recursively
 					Maze.UnsetWall (col, row, direction);
-					VisitRec (c, r);
+					VisitRec (c, r, direction);
 				}
 			}
 
