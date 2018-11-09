@@ -17,9 +17,7 @@ El código fuente se publica para que se pueda estudiar y generar laberintos par
 
 Necesitas una distribución _GNU/Linux_ y el entorno de ejecución _Mono.net_ para ejecutar _Maze Generator_. La versión actual está probada a fondo con Debian.
 
-Obtén el binario precompilado desde _Github_:
-
-    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
+Obtén el binario precompilado desde _Github_: https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
 
 Maximiza la ventana de terminal para ver todo el laberinto en pantalla.
 
@@ -33,7 +31,7 @@ El binario precompilado es compatible con _Mono.NET 4.5_. Ejecútalo con la sigu
 
 Si algo fue mal con la orden, probablemente necesites el _entorno de ejecución Mono_. _Debian_ y sus derivados proporcionan un _paquete Mono_ y es fácil de instalar:
 
-    sudo apt-get install mono-complete
+    sudo apt-get install mono-runtime
 
 Echa un vistazo a la guía [_How to install Mono_][MON01] si tienes otra distribución o sistema operativo.
 
@@ -84,12 +82,9 @@ Agradecemos [informe de errores o sugerencias][ISS01].
 
 
 
-
 [BRI01]: http://bricolabs.cc/
-[CON01]: http://oshwdem.org/concursos/
-[ISS01]: https://github.com/brico-labs/OshwdemMazes/issues
-[MEI01]: http://meikian.eu/
-[MON01]: http://www.mono-project.com/docs/getting-started/install/linux/
+[CON01]: http://rules.oshwdem.org/
+[ISS01]: https://github.com/rafacouto/OshwdemMazes/issues
+[MON01]: https://www.mono-project.com/download/stable/
 [OSH01]: http://oshwdem.org/
-
 
