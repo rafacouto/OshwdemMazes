@@ -17,9 +17,7 @@ The source code is published so that you can study and generate mazes in order t
 
 You need a _GNU/Linux_ distribution and _Mono.NET_ runtime to execute the _Maze Generator_. Current version is fully tested with Debian.
 
-Get the precompiled binary file from _Github_:
-
-    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
+Get the precompiled binary file from _Github_: https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
 
 Maximize the terminal window to view all the maze on screen.
 
@@ -33,7 +31,7 @@ The precompiled binary is _Mono.NET 4.5_ compatible. Try to execute it with the 
 
 If something was wrong with the command, you probably need the _Mono runtime_. _Debian_ flavours provide a _Mono package_ and it is easy to install:
 
-    sudo apt-get install mono-complete
+    sudo apt-get install mono-runtime
 
 See the official [_How to install Mono_][MON01] if you have another OS distro.
 
@@ -86,10 +84,9 @@ Bug reports or suggestions [are welcome][ISS01].
 
 
 [BRI01]: http://bricolabs.cc/
-[CON01]: http://oshwdem.org/concursos/
-[ISS01]: https://github.com/brico-labs/OshwdemMazes/issues
-[MEI01]: http://meikian.eu/
-[MON01]: http://www.mono-project.com/docs/getting-started/install/linux/
+[CON01]: http://rules.oshwdem.org/
+[ISS01]: https://github.com/rafacouto/OshwdemMazes/issues
+[MON01]: https://www.mono-project.com/download/stable/
 [OSH01]: http://oshwdem.org/
 
 
