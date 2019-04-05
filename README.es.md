@@ -19,7 +19,7 @@ Necesitas una distribución _GNU/Linux_ y el entorno de ejecución _Mono.net_ pa
 
 Obtén el binario precompilado del [directorio _Github_][PRE01]:
 
-    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator_16x16.exe
+    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
 
 Maximiza la ventana de terminal para ver todo el laberinto en pantalla.
 
@@ -38,6 +38,28 @@ Si algo fue mal con la orden, probablemente necesites el _entorno de ejecución 
 Echa un vistazo a la guía [_How to install Mono_][MON01] si tienes otra distribución o sistema operativo.
 
 Nota para _usuarios de Güindows y OSex_: debería funcionar desde una consola. Sin embargo, NO ofrecemos soporte para sistemas operativos privativos.
+
+
+
+### Maze straightness
+
+Desde v1.3, hay un parámetro desde la línea de órdenes para generar el laberinto con caminos con rectas más largas:
+
+```
+$ ./MazeGenerator.exe -h
+
+OSHWDEM Maze Generator v1.3 R2276
+
+-h --help
+    Shows this help
+
+-s --straightforward
+    Generates more straightness paths; float value (0.00 - 1.00), default is 0.00
+```
+
+![Maze straightness 0%-100%](img/maze_straightness.gif)
+
+Esta animación muestra 6 laberintos generados con valores 0.00, 0.20, 0.40. 0.60, 0.80 y 1.00 en el parámetro "-s".
 
 
 
@@ -87,9 +109,8 @@ Agradecemos [informe de errores o sugerencias][ISS01].
 
 [BRI01]: http://bricolabs.cc/
 [CON01]: http://oshwdem.org/concursos/
-[ISS01]: https://github.com/brico-labs/OshwdemMazes/issues
-[MEI01]: http://meikian.eu/
+[ISS01]: https://github.com/rafacouto/OshwdemMazes/issues
 [MON01]: http://www.mono-project.com/docs/getting-started/install/linux/
 [OSH01]: http://oshwdem.org/
-[PRE01]: https://github.com/brico-labs/OshwdemMazes/tree/master/precompiled
+[PRE01]: https://github.com/rafacouto/OshwdemMazes/tree/master/precompiled
 

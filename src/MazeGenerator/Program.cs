@@ -20,15 +20,60 @@
  */
 
 using System;
+using Mono.Options;
 
 namespace Treboada.Net.Ia
 {
 	class Oshwdem
 	{
+		public bool ShouldShowHelp;
+
+		public float Straightforward;
+
 		public static void Main (string[] args)
 		{
+			// show the version
+			Console.WriteLine ("\nOSHWDEM Maze Generator v{0}.{1} R{2}", Version.Major, Version.Minor, Version.Revision);
+
 			Oshwdem oshwdem = new Oshwdem ();
-			oshwdem.Run ();
+
+			oshwdem.CommandLineArgs (args);
+			if (oshwdem.ShouldShowHelp) 
+			{
+				oshwdem.ShowHelp ();
+			}
+			else 
+			{
+				oshwdem.Run ();
+			}
+		}
+
+		private void ShowHelp()
+		{
+			Console.WriteLine ("\n-h --help");
+			Console.WriteLine ("    Shows this help");
+			Console.WriteLine ("\n-s --straightforward");
+			Console.WriteLine ("    Generates more straightness paths; float value (0.00 - 1.00), default is 0.00\n");
+		}
+
+		public void CommandLineArgs(string[] args)
+		{
+			try 
+			{
+				var options = new OptionSet { 
+					{ "s|straightforward=", "Probability to generate straightforward paths (0.0 - 1.0).", s => 	float.TryParse(s, out Straightforward) }, 
+					{ "h|help", "Show this message and exit", h => ShouldShowHelp = (h != null) },
+				};
+
+				//System.Collections.Generic.List<string> extra = 
+				options.Parse (args);
+			} 
+			catch (OptionException e) 
+			{
+				Console.WriteLine ("Command line arguments error: {0}", e.Message);
+				Console.WriteLine ("Try `--help' for more information.");
+				ShouldShowHelp = true;
+			}
 		}
 
 		private void Run()
@@ -42,11 +87,16 @@ namespace Treboada.Net.Ia
 			// prepare de generator
 			MazeGenerator generator = SetupGenerator (maze);
 
+			// DepthFirst options
+			DepthFirst df = generator as DepthFirst;
+			if (df != null) 
+			{
+				df.Straightforward = Straightforward;
+				Console.WriteLine ("Algorithm: depth-first [straightforward probability {0:P0}]", Straightforward);
+			}
+
 			// generate from top-left corner, next to the starting cell
 			generator.Generate (1, 0);
-
-			// show the version
-			Console.WriteLine ("OSHWDEM Maze Generator v{0}.{1} R{2}", Version.Major, Version.Minor, Version.Revision);
 
 			// output to the console
 			Console.Write (maze);

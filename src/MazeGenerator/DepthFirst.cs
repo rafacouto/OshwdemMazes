@@ -33,13 +33,16 @@ namespace Treboada.Net.Ia
 
 		private bool[,] Visited;
 
+		public float Straightforward;
 
 		public DepthFirst (Maze maze)
 		{
 			this.Maze = maze;
 			this.Visited = new bool[maze.Cols, maze.Rows];
-		}
 
+			// no persistent direction by default
+			this.Straightforward = 0.0f; 
+		}
 
 		public bool IsVisited(int col, int row)
 		{
@@ -52,9 +55,12 @@ namespace Treboada.Net.Ia
 			Visited[col, row] = visited;
 		}
 
-
 		public void Generate(int col, int row)
 		{
+			// limits
+			if (this.Straightforward < 0.0f) this.Straightforward = 0.0f;
+			if (this.Straightforward > 1.0f) this.Straightforward = 1.0f;
+
 			// explore recursively
 			VisitRec (col, row, Maze.Direction.E);
 		}
@@ -66,27 +72,32 @@ namespace Treboada.Net.Ia
 			Maze.Direction.W,
 		};
 
-		private void VisitRec(int col, int row, Maze.Direction old_direction)
+		private void VisitRec(int col, int row, Maze.Direction previous)
 		{
 			// mark visited
 			Visited [col, row] = true;
 
 			// list of possible destinations
 			List<Maze.Direction> pending = new List<Maze.Direction> (FourRoses);
+			bool previous_elegible = true;
 
 			// while possible destinations
 			while (pending.Count > 0) {
 
-				// extract one from the list
-				int index = RndFactory.Next () % pending.Count;
-				Maze.Direction direction = pending[index];
-				for (int i = 0; i < 2; i++) {
-					if (direction != old_direction) {
-						index = RndFactory.Next () % pending.Count;
-						direction = pending [index];
-					}
+				Maze.Direction direction;
+
+				// try to persist straight under some probability
+				if (previous_elegible && RndFactory.Next () < Straightforward * Int32.MaxValue) {
+					// sack
+					direction = previous;
+					pending.Remove (direction);
+					previous_elegible = false;
+				} else {
+					// extract one from the list
+					int index = RndFactory.Next () % pending.Count;
+					direction = pending [index];
+					pending.RemoveAt (index);
 				}
-				pending.RemoveAt (index);
 
 				// relative to this cell
 				int c = col, r = row;
