@@ -62,7 +62,7 @@ namespace Treboada.Net.Ia
 			if (this.Straightforward > 1.0f) this.Straightforward = 1.0f;
 
 			// explore recursively
-			VisitRec (col, row, Maze.Direction.E);
+			VisitRec (col, row, Maze.Direction.N);
 		}
 
 		private static Maze.Direction[] FourRoses = new Maze.Direction[] {
