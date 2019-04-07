@@ -82,7 +82,7 @@ namespace Treboada.Net.Ia
 			Maze maze = CreateMaze (16);
 
 			// the finish door
-			maze.UnsetWall (8, 8, Maze.Direction.S);
+			maze.UnsetWall (8, 7, Maze.Direction.E);
 
 			// prepare de generator
 			MazeGenerator generator = SetupGenerator (maze);
@@ -96,7 +96,7 @@ namespace Treboada.Net.Ia
 			}
 
 			// generate from top-left corner, next to the starting cell
-			generator.Generate (1, 0);
+			generator.Generate (0, maze.Cols - 2);
 
 			// output to the console
 			Console.Write (maze);
@@ -112,7 +112,7 @@ namespace Treboada.Net.Ia
 			Maze maze = new Maze (side, side, Maze.WallInit.Full);
 
 			// set the starting cell
-			maze.UnsetWall (0, 0, Maze.Direction.E);
+			maze.UnsetWall (0, maze.Cols - 1, Maze.Direction.N);
 
 			// clear the walls inside 2x2 center cells
 			maze.UnsetWall (7, 7, Maze.Direction.S);
@@ -130,7 +130,7 @@ namespace Treboada.Net.Ia
 			DepthFirst generator = new DepthFirst (maze);
 
 			// starting cell is set
-			generator.SetVisited (0, 0, true);
+			generator.SetVisited (0, maze.Cols - 1, true);
 
 			// dont enter into the 3x3 center
 			generator.SetVisited (7, 7, true);

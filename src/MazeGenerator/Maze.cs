@@ -220,8 +220,12 @@ namespace Treboada.Net.Ia
 			// A and B marks
             if (abMarks)
             {
-                buffer[cellSizeWidth / 2, cellSizeHeight / 2] = 'A';
-                buffer[Cols * cellSizeWidth / 2, Rows * cellSizeHeight / 2] = 'B';
+                buffer[cellSizeWidth / 2, Cols * cellSizeHeight - 1] = 'S';
+                buffer[(Cols - 1) * cellSizeWidth / 2, (Rows - 1) * cellSizeHeight / 2] = 'G';
+                buffer[(Cols - 1) * cellSizeWidth / 2, (Rows + 1) * cellSizeHeight / 2] = 'G';
+                buffer[(Cols + 1) * cellSizeWidth / 2, (Rows - 1) * cellSizeHeight / 2] = 'G';
+                buffer[(Cols + 1) * cellSizeWidth / 2, (Rows + 1) * cellSizeHeight / 2] = 'G';
+                buffer[Cols * cellSizeWidth / 2, Rows * cellSizeHeight / 2] = 'o';
             }
 
 			// convert the big buffer to an array of lines
@@ -251,45 +255,45 @@ namespace Treboada.Net.Ia
 			// top
             if (!IsOpen(col, row, Direction.N))
             {
-				buffer[x, y] = '+';
+				buffer[x, y] = 'o';
 				for (int c = 1; c < cellSizeWidth; c++)
                 {
                     buffer[x + c, y] = '-';
                 }
-				buffer[x + cellSizeWidth, y] = '+';
+				buffer[x + cellSizeWidth, y] = 'o';
             }
 
 			// bottom
 			if (!IsOpen(col, row, Direction.S))
 			{
-				buffer[x, y + cellSizeHeight] = '+';
+				buffer[x, y + cellSizeHeight] = 'o';
 				for (int c = 1; c < cellSizeWidth; c++)
 				{
 					buffer[x + c, y + cellSizeHeight] = '-';
 				}
-				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
+				buffer[x + cellSizeWidth, y + cellSizeHeight] = 'o';
 			}
 
 			// left
 			if (!IsOpen(col, row, Direction.W))
 			{
-				buffer[x, y] = '+';
+				buffer[x, y] = 'o';
 				for (int c = 1; c < cellSizeHeight; c++)
 				{
 					buffer[x, y + c] = '|';
 				}
-				buffer[x, y + cellSizeHeight] = '+';
+				buffer[x, y + cellSizeHeight] = 'o';
 			}
 
 			// right
 			if (!IsOpen(col, row, Direction.E))
 			{
-				buffer[x + cellSizeWidth, y] = '+';
+				buffer[x + cellSizeWidth, y] = 'o';
 				for (int c = 1; c < cellSizeHeight; c++)
 				{
 					buffer[x + cellSizeWidth, y + c] = '|';
 				}
-				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
+				buffer[x + cellSizeWidth, y + cellSizeHeight] = 'o';
 			}
 		}
 
