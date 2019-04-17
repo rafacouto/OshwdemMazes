@@ -41,7 +41,7 @@ Nota para _usuarios de Güindows y OSex_: debería funcionar desde una consola. 
 
 
 
-### Maze straightness
+### Laberintos con más rectas
 
 Desde v1.3, hay un parámetro desde la línea de órdenes para generar el laberinto con caminos con rectas más largas:
 
@@ -53,7 +53,7 @@ OSHWDEM Maze Generator v1.3 R2276
 -h --help
     Shows this help
 
--s --straightforward
+-s --straightness
     Generates more straightness paths; float value (0.00 - 1.00), default is 0.00
 ```
 

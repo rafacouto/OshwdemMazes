@@ -29,11 +29,13 @@ namespace Treboada.Net.Ia
 	/// </summary>
 	public class DepthFirst : MazeGenerator
 	{
+		
 		private Maze Maze; 
 
 		private bool[,] Visited;
 
-		public float Straightforward;
+		public float Straightness;
+
 
 		public DepthFirst (Maze maze)
 		{
@@ -41,8 +43,9 @@ namespace Treboada.Net.Ia
 			this.Visited = new bool[maze.Cols, maze.Rows];
 
 			// no persistent direction by default
-			this.Straightforward = 0.0f; 
+			this.Straightness = 0.0f; 
 		}
+
 
 		public bool IsVisited(int col, int row)
 		{
@@ -55,15 +58,26 @@ namespace Treboada.Net.Ia
 			Visited[col, row] = visited;
 		}
 
+
+		public void SetVisited(int index, bool visited)
+		{
+			int col = Maze.getCol (index);
+			int row = Maze.getRow (index);
+
+			Visited[col, row] = visited;
+		}
+
+
 		public void Generate(int col, int row)
 		{
 			// limits
-			if (this.Straightforward < 0.0f) this.Straightforward = 0.0f;
-			if (this.Straightforward > 1.0f) this.Straightforward = 1.0f;
+			if (this.Straightness < 0.0f) this.Straightness = 0.0f;
+			if (this.Straightness > 1.0f) this.Straightness = 1.0f;
 
 			// explore recursively
 			VisitRec (col, row, Maze.Direction.E);
 		}
+
 
 		private static Maze.Direction[] FourRoses = new Maze.Direction[] {
 			Maze.Direction.N,
@@ -71,6 +85,7 @@ namespace Treboada.Net.Ia
 			Maze.Direction.S,
 			Maze.Direction.W,
 		};
+
 
 		private void VisitRec(int col, int row, Maze.Direction previous)
 		{
@@ -86,8 +101,8 @@ namespace Treboada.Net.Ia
 
 				Maze.Direction direction;
 
-				// try to persist straight under some probability
-				if (previous_elegible && RndFactory.Next () < Straightforward * Int32.MaxValue) {
+				// try to persist straightforward under Straightness probability
+				if (previous_elegible && RndFactory.Next () < Straightness * Int32.MaxValue) {
 					// sack
 					direction = previous;
 					pending.Remove (direction);
@@ -123,7 +138,7 @@ namespace Treboada.Net.Ia
 				}
 
 				// if destination is valid
-				if (CellIsValid (c, r) && !Visited [c, r]) {
+				if (InBounds (c, r) && !Visited [c, r]) {
 
 					// open the wall and explore recursively
 					Maze.UnsetWall (col, row, direction);
@@ -134,7 +149,7 @@ namespace Treboada.Net.Ia
 		}
 
 
-		private bool CellIsValid(int col, int row)
+		private bool InBounds(int col, int row)
 		{
 			return (col >= 0 && col < Maze.Cols && row >= 0 && row < Maze.Rows);
 		}

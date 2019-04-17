@@ -45,6 +45,8 @@
     <Compile Include="DepthFirst.cs" />
     <Compile Include="MazeGenerator.cs" />
     <Compile Include="RndFactory.cs" />
+    <Compile Include="PrintableMaze.cs" />
+    <Compile Include="ProgramOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

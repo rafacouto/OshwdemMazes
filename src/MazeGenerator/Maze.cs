@@ -69,15 +69,21 @@ namespace Treboada.Net.Ia
 		public int Count { get; private set; }
 
 		// the cells
-        byte[] Cells;
+        private byte[] Cells;
+
+		// start and goal cells
+		public int? StartCell { get; set; }
+		public int[] GoalCells { get; set; }
 
 		// constructor
-		public Maze(int cols, int rows, WallInit init)
+		public Maze(int cols, int rows, WallInit init = WallInit.Perimeter)
         {
 			// basic properties
             Cols = cols;
 			Rows = rows;
             Count = rows * cols;
+			StartCell = null;
+			GoalCells = new int[] { };
 
 			// array with the cells
             Cells = new byte[Count];
@@ -100,12 +106,10 @@ namespace Treboada.Net.Ia
 
 			} else if (init == WallInit.Full) {
 
-				for (int r = 0; r < rows; r++) {
-					for (int c = 0; c < cols; c++) {
+				for (int c = 0; c < Count; c++) {
 
-						// four sides
-						this [r, c] = Cell_NESW;
-					}
+					// four sides
+					this [c] = Cell_NESW;
 				}
 			}
         }
@@ -185,112 +189,19 @@ namespace Treboada.Net.Ia
 			}
 		}
 
-		public override string ToString ()
+		public int getIndex(int col, int row)
 		{
-			StringBuilder str = new StringBuilder ();
-
-			foreach (string s in StrLines(4, 2, true)) {
-				str.AppendLine (s);
-			}
-
-			return str.ToString ();
+			return (row * Cols) + col;
 		}
 
-		public string[] StrLines(int cellSizeWidth, int cellSizeHeight, bool abMarks)
-        {
-			string[] lines = new string[(Rows * cellSizeHeight) + 1];
+		public int getCol(int index)
+		{
+			return index % Cols;
+		}
 
-			// the big buffer of chars
-			char[,] buffer = new char[(Cols * cellSizeWidth) + 1, (Rows * cellSizeHeight) + 1];
-			for (int yy = buffer.GetLength(1) - 1; yy >= 0; yy--) {
-				for (int xx = buffer.GetLength(0) - 1; xx >= 0; xx--) {
-					buffer [xx, yy] = ' ';
-				}
-			}
-
-			// render every cell
-            for (int r = 0; r < Rows; r++)
-            {
-                for (int c = 0; c < Cols; c++)
-                {
-					BuildStringCell(buffer, c, r, cellSizeWidth, cellSizeHeight);
-                }
-            }
-
-			// A and B marks
-            if (abMarks)
-            {
-                buffer[cellSizeWidth / 2, cellSizeHeight / 2] = 'A';
-                buffer[Cols * cellSizeWidth / 2, Rows * cellSizeHeight / 2] = 'B';
-            }
-
-			// convert the big buffer to an array of lines
-			int length = Cols * cellSizeWidth + 1;
-            for (int r = 0; r < Rows; r++) {
-				for (int rr = 0; rr <= cellSizeHeight; rr++) {
-
-					int l = (r * cellSizeHeight) + rr;
-					StringBuilder lineBuffer = new StringBuilder(length + 1);
-
-					for (int c = 0; c < length; c++) {
-						lineBuffer.Append(buffer[c, l]);
-					}
-
-					lines[l] = lineBuffer.ToString();
-				}
-            }
-
-            return lines;
-        }
-
-		private void BuildStringCell(char[,] buffer, int col, int row, int cellSizeWidth, int cellSizeHeight)
-        {
-			int x = col * cellSizeWidth;
-			int y = row * cellSizeHeight;
-
-			// top
-            if (!IsOpen(col, row, Direction.N))
-            {
-				buffer[x, y] = '+';
-				for (int c = 1; c < cellSizeWidth; c++)
-                {
-                    buffer[x + c, y] = '-';
-                }
-				buffer[x + cellSizeWidth, y] = '+';
-            }
-
-			// bottom
-			if (!IsOpen(col, row, Direction.S))
-			{
-				buffer[x, y + cellSizeHeight] = '+';
-				for (int c = 1; c < cellSizeWidth; c++)
-				{
-					buffer[x + c, y + cellSizeHeight] = '-';
-				}
-				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
-			}
-
-			// left
-			if (!IsOpen(col, row, Direction.W))
-			{
-				buffer[x, y] = '+';
-				for (int c = 1; c < cellSizeHeight; c++)
-				{
-					buffer[x, y + c] = '|';
-				}
-				buffer[x, y + cellSizeHeight] = '+';
-			}
-
-			// right
-			if (!IsOpen(col, row, Direction.E))
-			{
-				buffer[x + cellSizeWidth, y] = '+';
-				for (int c = 1; c < cellSizeHeight; c++)
-				{
-					buffer[x + cellSizeWidth, y + c] = '|';
-				}
-				buffer[x + cellSizeWidth, y + cellSizeHeight] = '+';
-			}
+		public int getRow(int index)
+		{
+			return index / Cols;
 		}
 
     }
