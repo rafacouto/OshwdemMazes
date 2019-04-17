@@ -17,7 +17,9 @@ The source code is published so that you can study and generate mazes in order t
 
 You need a _GNU/Linux_ distribution and _Mono.NET_ runtime to execute the _Maze Generator_. Current version is fully tested with Debian.
 
-Get the precompiled binary file from _Github_: https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/
+Get the precompiled binary file from [_Github_ directory][PRE01]:
+
+    wget https://github.com/brico-labs/OshwdemMazes/raw/master/precompiled/MazeGenerator.exe
 
 Maximize the terminal window to view all the maze on screen.
 
@@ -36,6 +38,28 @@ If something was wrong with the command, you probably need the _Mono runtime_. _
 See the official [_How to install Mono_][MON01] if you have another OS distro.
 
 Note for _Windoze and Osex users_: it should work from a console. However, we do NOT offer support for privative operating systems.
+
+
+### Maze straightness
+
+Since v1.3, there is a command line parameter to generate the maze with more straightened paths:
+
+```
+$ ./MazeGenerator.exe -h
+
+OSHWDEM Maze Generator v1.3 R2276
+
+-h --help
+    Shows this help
+
+-s --straightness
+    Generates more straightness paths; float value (0.00 - 1.00), default is 0.00
+```
+
+![Maze straightness 0%-100%](img/maze_straightness.gif)
+
+This animation shows 6 mazes with 0.00, 0.20, 0.40. 0.60, 0.80 and 1.00 values used in the "-s" parameter.
+
 
 
 
@@ -88,5 +112,6 @@ Bug reports or suggestions [are welcome][ISS01].
 [ISS01]: https://github.com/rafacouto/OshwdemMazes/issues
 [MON01]: https://www.mono-project.com/download/stable/
 [OSH01]: http://oshwdem.org/
+[PRE01]: https://github.com/rafacouto/OshwdemMazes/tree/master/precompiled
 
 

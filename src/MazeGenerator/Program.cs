@@ -25,11 +25,23 @@ namespace Treboada.Net.Ia
 {
 	class Oshwdem
 	{
+		private static ProgramOptions Options;
+
 		public static void Main (string[] args)
 		{
+			// show the version
+			Console.WriteLine ("\nOSHWDEM Maze Generator v{0}.{1} R{2}", Version.Major, Version.Minor, Version.Revision);
+
+			Oshwdem.Options = new ProgramOptions();
+
+			// exit if error in command line options or showing help
+			if (Oshwdem.Options.CommandLineArgs (args)) return;
+
+			// execute the main program
 			Oshwdem oshwdem = new Oshwdem ();
 			oshwdem.Run ();
 		}
+
 
 		private void Run()
 		{
@@ -42,14 +54,21 @@ namespace Treboada.Net.Ia
 			// prepare de generator
 			MazeGenerator generator = SetupGenerator (maze);
 
+			// DepthFirst options
+			DepthFirst df = generator as DepthFirst;
+			if (df != null) 
+			{
+				df.Straightness = Options.Straightness;
+				Console.WriteLine ("Algorithm: depth-first [straightforward probability {0:P0}]", Options.Straightness);
+			}
+
 			// generate from top-left corner, next to the starting cell
 			generator.Generate (1, 0);
 
-			// show the version
-			Console.WriteLine ("OSHWDEM Maze Generator v{0}.{1} R{2}", Version.Major, Version.Minor, Version.Revision);
-
 			// output to the console
-			Console.Write (maze);
+			PrintableMaze pmaze = new PrintableMaze(maze);
+			pmaze.Update ();
+			Console.Write (pmaze);
 
 			// wait for <enter>
 			Console.ReadLine ();
@@ -70,6 +89,17 @@ namespace Treboada.Net.Ia
 			maze.UnsetWall (8, 7, Maze.Direction.S);
 			maze.UnsetWall (7, 8, Maze.Direction.E);
 
+			// start
+			maze.StartCell = maze.getIndex (0, 0);
+
+			// goal
+			maze.GoalCells = new int[] {
+				maze.getIndex(7, 7),
+				maze.getIndex(7, 8),
+				maze.getIndex(8, 7),
+				maze.getIndex(8, 8),
+			};
+
 			return maze;
 		}
 
@@ -80,13 +110,14 @@ namespace Treboada.Net.Ia
 			DepthFirst generator = new DepthFirst (maze);
 
 			// starting cell is set
-			generator.SetVisited (0, 0, true);
+			if (maze.StartCell.HasValue) {
+				generator.SetVisited (maze.StartCell.Value, true);
+			}
 
-			// dont enter into the 3x3 center
-			generator.SetVisited (7, 7, true);
-			generator.SetVisited (8, 7, true);
-			generator.SetVisited (7, 8, true);
-			generator.SetVisited (8, 8, true);
+			// dont enter into the goal areas
+			foreach (var g in maze.GoalCells) {
+				generator.SetVisited (g, true);
+			}
 
 			return generator;
 		}
