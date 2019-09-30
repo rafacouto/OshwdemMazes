@@ -26,9 +26,9 @@ namespace Treboada.Net.Ia
 {
 	class Oshwdem
 	{
-		public bool ShouldShowHelp;
+		public bool ShouldShowHelp = false;
 
-		public float Straightforward;
+		public float Straightforward = 0.50f;
 
 		public static void Main (string[] args)
 		{
