@@ -2,4 +2,7 @@ bin/
 obj/
 test-results/
 *.userprefs
+/contest-generator/maze.png
+/contest-generator/maze.txt
+/contest-generator/print.png
 

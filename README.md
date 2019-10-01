@@ -53,7 +53,7 @@ OSHWDEM Maze Generator v1.3 R2276
     Shows this help
 
 -s --straightforward
-    Generates more straightness paths; float value (0.00 - 1.00), default is 0.00
+    Generates more straightness paths; float value (0.00 - 1.00), default is 0.50
 ```
 
 ![Maze straightness 0%-100%](img/maze_straightness.gif)

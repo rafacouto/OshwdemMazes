@@ -53,7 +53,7 @@ namespace Treboada.Net.Ia
 			Console.WriteLine ("\n-h --help");
 			Console.WriteLine ("    Shows this help");
 			Console.WriteLine ("\n-s --straightforward");
-			Console.WriteLine ("    Generates more straightness paths; float value (0.00 - 1.00), default is 0.00\n");
+            Console.WriteLine ("    Generates more straightness paths; float value (0.00 - 1.00), default is {0}\n", Straightforward);
 		}
 
 		public void CommandLineArgs(string[] args)
